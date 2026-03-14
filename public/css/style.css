@@ -88,9 +88,9 @@ ul { list-style: none; }
 }
 .nav-logo { display: flex; align-items: center; }
 .nav-logo-img {
-  height: 36px; width: auto;
+  height: 40px; width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  filter: invert(1);
 }
 .nav-links { display: flex; align-items: center; gap: 2px; }
 .nav-link {
@@ -522,7 +522,6 @@ ul { list-style: none; }
 .footer-logo { display: flex; align-items: center; }
 .footer-logo-img {
   height: 42px; width: auto; object-fit: contain;
-  filter: brightness(0);
 }
 .footer-right { margin: 0; color: var(--text-secondary); }
 .footer-sep { opacity: 0.5; margin: 0 6px; }
