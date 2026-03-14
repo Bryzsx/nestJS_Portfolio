@@ -80,6 +80,7 @@ export class SeedService {
       { name: 'Django', category: SkillCategory.WEB_BACKEND, proficiency: 70 },
       { name: 'HTML', category: SkillCategory.WEB_BACKEND, proficiency: 95 },
       { name: 'CSS', category: SkillCategory.WEB_BACKEND, proficiency: 90 },
+      { name: 'NestJS', category: SkillCategory.WEB_BACKEND, proficiency: 70 },
       { name: 'Network Analysis', category: SkillCategory.CYBERSECURITY, proficiency: 75 },
       { name: 'Vulnerability Assessment', category: SkillCategory.CYBERSECURITY, proficiency: 70 },
       { name: 'Penetration Testing', category: SkillCategory.CYBERSECURITY, proficiency: 65 },
