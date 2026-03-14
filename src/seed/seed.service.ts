@@ -69,6 +69,11 @@ export class SeedService {
           { name: 'Virtual Coworker', url: '#' },
           { name: 'LinkedIn', url: 'https://www.linkedin.com/in/bryce-corvera-520863321' },
         ],
+        location: 'Butuan City, Philippines',
+        birthDate: 'July 21, 2002',
+        age: '23 y/o',
+        citizenship: 'Filipino',
+        role: 'Software Developer',
       }),
     );
   }

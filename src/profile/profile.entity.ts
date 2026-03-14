@@ -43,6 +43,21 @@ export class Profile {
   @Column({ type: 'simple-json', default: '[]' })
   hirePlatforms: { name: string; url: string }[];
 
+  @Column({ default: '' })
+  location: string;
+
+  @Column({ default: '' })
+  birthDate: string;
+
+  @Column({ default: '' })
+  age: string;
+
+  @Column({ default: '' })
+  citizenship: string;
+
+  @Column({ default: '' })
+  role: string;
+
   @UpdateDateColumn()
   updatedAt: Date;
 }

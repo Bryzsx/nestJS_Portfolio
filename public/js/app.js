@@ -56,6 +56,21 @@ async function loadProfile() {
       </a>`)
       .join('');
   }
+
+  const personalInfo = document.getElementById('personal-info');
+  if (personalInfo) {
+    const items = [
+      { label: 'Location', value: profile.location },
+      { label: 'Born', value: profile.birthDate },
+      { label: 'Current Age', value: profile.age },
+      { label: 'Citizenship', value: profile.citizenship },
+      { label: 'Role', value: profile.role },
+      { label: 'Availability', value: profile.availableForWork ? 'Open for Hire' : 'Not Available' },
+    ].filter(i => i.value);
+    personalInfo.innerHTML = items
+      .map(i => `<div class="personal-item"><span class="personal-item-label">${i.label}</span><span class="personal-item-value">${i.value}</span></div>`)
+      .join('');
+  }
 }
 
 // ===== LOAD SKILLS =====

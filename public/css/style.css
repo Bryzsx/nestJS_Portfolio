@@ -204,6 +204,31 @@ ul { list-style: none; }
   color: var(--text);
 }
 
+/* ===== PERSONAL INFO ===== */
+.personal-section { background: var(--bg-alt); }
+.personal-card {
+  background: #faf7f3;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 40px;
+  max-width: 640px;
+}
+.personal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 40px;
+}
+.personal-item {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.personal-item-label {
+  font-size: 0.68rem; font-weight: 700; color: var(--text-muted);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.personal-item-value {
+  font-size: 0.95rem; font-weight: 600; color: var(--text);
+}
+
 /* ===== SKILLS ===== */
 .skills-section { background: var(--bg-alt); }
 .skills-grid {
@@ -552,6 +577,8 @@ ul { list-style: none; }
   .hero-bio { max-width: none; }
   .hero-buttons { justify-content: center; }
   .section-title, .section-title-light, .section-title-muted { font-size: 1.8rem; }
+  .personal-grid { grid-template-columns: 1fr; }
+  .personal-card { padding: 24px; }
   .skills-grid { grid-template-columns: 1fr; }
   .timeline-item { grid-template-columns: 1fr; gap: 8px; }
   .project-card { grid-template-columns: 1fr; }

@@ -75,4 +75,29 @@ export class CreateProfileDto {
   @Type(() => HirePlatformDto)
   @IsOptional()
   hirePlatforms?: HirePlatformDto[];
+
+  @ApiPropertyOptional({ example: 'Butuan City, Philippines' })
+  @IsString()
+  @IsOptional()
+  location?: string;
+
+  @ApiPropertyOptional({ example: 'July 21, 2002' })
+  @IsString()
+  @IsOptional()
+  birthDate?: string;
+
+  @ApiPropertyOptional({ example: '23 y/o' })
+  @IsString()
+  @IsOptional()
+  age?: string;
+
+  @ApiPropertyOptional({ example: 'Filipino' })
+  @IsString()
+  @IsOptional()
+  citizenship?: string;
+
+  @ApiPropertyOptional({ example: 'Software Developer' })
+  @IsString()
+  @IsOptional()
+  role?: string;
 }
