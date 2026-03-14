@@ -64,12 +64,12 @@ ul { list-style: none; }
 /* ===== NAVBAR ===== */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: transparent;
-  padding: 16px 0;
+  background: var(--bg-dark);
+  padding: 12px 0;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .navbar.scrolled {
-  background: rgba(246, 241, 235, 0.9);
+  background: var(--bg-dark);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -80,36 +80,40 @@ ul { list-style: none; }
 }
 .nav-pill {
   display: flex; align-items: center; gap: 8px;
-  background: var(--bg);
+  background: transparent;
   border-radius: 9999px;
   padding: 8px 12px 8px 20px;
-  box-shadow: 0 4px 24px rgba(26, 26, 26, 0.08);
   position: relative;
 }
-.nav-logo { display: flex; align-items: center; }
+.nav-logo { display: flex; align-items: center; border: none; outline: none; }
 .nav-logo-img {
   height: 40px; width: auto;
   object-fit: contain;
+  border: none; outline: none;
 }
 .nav-links { display: flex; align-items: center; gap: 2px; }
 .nav-link {
   font-size: 0.85rem; font-weight: 500; padding: 8px 16px;
-  border-radius: 20px; color: var(--text-secondary); transition: all 0.25s;
+  border-radius: 20px; color: var(--text-light-secondary); transition: all 0.25s;
+  border: none; outline: none;
 }
-.nav-link:hover { color: var(--text); background: rgba(26, 26, 26, 0.06); }
-.nav-link.active { color: var(--text); font-weight: 600; }
+.nav-link:hover { color: var(--text-light); background: rgba(255,255,255,0.08); }
+.nav-link.active { color: var(--text-light); font-weight: 600; }
 .nav-cta {
   background: var(--bg-dark); color: var(--text-light) !important;
   border-radius: 20px; padding: 8px 20px; margin-left: 4px;
-  font-weight: 600;
+  font-weight: 600; border: none; outline: none;
 }
 .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+.nav-link:focus, .nav-link:focus-visible, .nav-cta:focus, .nav-cta:focus-visible, .nav-logo:focus, .nav-logo:focus-visible {
+  outline: none;
+}
 .nav-hamburger {
   display: none; background: none; border: none; cursor: pointer;
   position: absolute; right: 28px; flex-direction: column; gap: 5px;
 }
 .nav-hamburger span {
-  width: 22px; height: 2px; background: var(--text);
+  width: 22px; height: 2px; background: var(--text-light);
   border-radius: 2px; transition: 0.3s;
 }
 
