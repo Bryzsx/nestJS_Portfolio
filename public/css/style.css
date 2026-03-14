@@ -512,7 +512,7 @@ ul { list-style: none; }
 .footer {
   background: var(--bg); color: var(--text-secondary);
   border-top: 1px solid var(--border);
-  padding: 10px 0; font-size: 0.78rem;
+  padding: 14px 0; font-size: 0.78rem;
 }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .footer-logo { display: flex; align-items: center; }
