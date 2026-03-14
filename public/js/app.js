@@ -344,12 +344,29 @@ function initLightbox() {
   });
 }
 
+// ===== HOVER MOVE (Magnetic effect - text follows cursor) =====
+function initHoverMove() {
+  const strength = 8;
+  document.querySelectorAll('.hover-move').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / strength;
+      const y = (e.clientY - rect.top - rect.height / 2) / strength;
+      el.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'translate(0, 0)';
+    });
+  });
+}
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initContactForm();
   initLightbox();
   initReveal();
+  initHoverMove();
   loadProfile();
   loadSkills();
   loadExperience();
