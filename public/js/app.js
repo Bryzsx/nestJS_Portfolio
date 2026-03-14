@@ -38,11 +38,10 @@ async function loadProfile() {
 
   const mailto = document.getElementById('contact-mailto');
   const email = profile.email || 'bryce.corvera21@gmail.com';
-  mailto.href = 'mailto:' + email;
-  mailto.onclick = (e) => {
-    e.preventDefault();
-    window.location.href = 'mailto:' + email;
-  };
+  mailto.href = 'https://mail.google.com/mail/?view=cm&to=' + encodeURIComponent(email);
+  mailto.target = '_blank';
+  mailto.rel = 'noopener noreferrer';
+  mailto.onclick = null;
 
   const resumeLink = document.getElementById('resume-link');
   if (profile.resumeUrl) resumeLink.href = profile.resumeUrl;
