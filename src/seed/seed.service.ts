@@ -56,7 +56,7 @@ export class SeedService {
       this.profileRepo.create({
         name: 'Bryce A. Corvera',
         title: 'IT Professional & Developer',
-        bio: 'Highly motivated Bachelor of Science in Information Technology (BSIT) graduate with a strong foundation in web development, backend systems, and cybersecurity. Skilled in the Python Flask framework, SEO, and building functional, secure applications. Possesses practical experience in network analysis, vulnerability assessment, and basic penetration testing gained through CTF challenges and hands-on projects.',
+        bio: 'BSIT graduate specializing in full-stack web development and cybersecurity. I build secure, production-ready applications using Python, Flask, NestJS, and modern backend frameworks. With hands-on experience in network analysis, vulnerability assessment, and penetration testing from CTF competitions, I bring a security-first mindset to every project I ship.',
         avatarUrl: '/images/profile.png',
         githubUrl: 'https://github.com/bryce',
         linkedinUrl: 'https://linkedin.com/in/bryce',
