@@ -37,7 +37,12 @@ async function loadProfile() {
   document.getElementById('contact-phone').textContent = profile.phone || '';
 
   const mailto = document.getElementById('contact-mailto');
-  if (profile.email) mailto.href = 'mailto:' + profile.email;
+  const email = profile.email || 'bryce.corvera21@gmail.com';
+  mailto.href = 'mailto:' + email;
+  mailto.onclick = (e) => {
+    e.preventDefault();
+    window.location.href = 'mailto:' + email;
+  };
 
   const resumeLink = document.getElementById('resume-link');
   if (profile.resumeUrl) resumeLink.href = profile.resumeUrl;
