@@ -516,7 +516,10 @@ ul { list-style: none; }
 }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .footer-logo { display: flex; align-items: center; }
-.footer-logo-img { height: 42px; width: auto; object-fit: contain; }
+.footer-logo-img {
+  height: 42px; width: auto; object-fit: contain;
+  filter: brightness(0);
+}
 .footer-right { margin: 0; color: var(--text-secondary); }
 .footer-sep { opacity: 0.5; margin: 0 6px; }
 .footer-note { color: var(--text-muted); font-size: 0.78rem; }
