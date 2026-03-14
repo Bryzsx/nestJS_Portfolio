@@ -1,16 +1,15 @@
-import 'reflect-metadata';
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import serverlessExpress from '@vendia/serverless-express';
-import express from 'express';
-import { AppModule } from '../src/app.module';
+const { NestFactory } = require('@nestjs/core');
+const { ValidationPipe } = require('@nestjs/common');
+const { ExpressAdapter } = require('@nestjs/platform-express');
+const serverlessExpress = require('@vendia/serverless-express');
+const express = require('express');
 
-let cachedHandler: any;
+let cachedHandler;
 
 async function bootstrap() {
   if (cachedHandler) return cachedHandler;
 
+  const { AppModule } = require('../dist/app.module');
   const expressApp = express();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
 
@@ -24,7 +23,7 @@ async function bootstrap() {
   return cachedHandler;
 }
 
-export default async function handler(req: any, res: any) {
+module.exports = async function handler(req, res) {
   const serverlessHandler = await bootstrap();
   return serverlessHandler(req, res);
-}
+};
