@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bryce A. Corvera — Portfolio</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#about" class="nav-logo"><img src="/images/Logo site.png" alt="BRYCORV_" class="nav-logo-img"></a>
+      <div class="nav-links" id="nav-links">
+        <a href="#about" class="nav-link active" data-section="about">About</a>
+        <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+        <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+        <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+        <a href="#education" class="nav-link" data-section="education">Education</a>
+        <a href="#contact" class="nav-link nav-cta" data-section="contact">Hire Me</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero / About -->
+  <section id="about" class="section hero-section">
+    <div class="hero-bg-glow"></div>
+    <div class="container hero-grid">
+      <div class="hero-content reveal">
+        <div class="badge" id="availability-badge" style="display:none;">
+          <span class="badge-dot"></span> Available for Work
+        </div>
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-name" id="hero-name">Loading...</h1>
+        <p class="hero-bio" id="hero-bio"></p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">View My Projects <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="#contact" class="btn btn-ghost">Contact Me</a>
+        </div>
+      </div>
+      <div class="hero-avatar reveal reveal-delay-1">
+        <div class="avatar-ring">
+          <img id="hero-avatar-img" src="" alt="Profile photo" class="avatar-img">
+        </div>
+        <div class="avatar-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section skills-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">What I Bring</p>
+        <h2 class="section-title">Skills &amp; Expertise</h2>
+      </div>
+      <div class="skills-grid" id="skills-grid"></div>
+      <div class="soft-skills reveal" id="soft-skills"></div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section experience-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Where I've Been</p>
+        <h2 class="section-title">Professional Experience</h2>
+      </div>
+      <div class="timeline" id="experience-timeline"></div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications" class="section certifications-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Credentials</p>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+      <div class="certs-list" id="certs-list"></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section projects-section">
+    <div class="projects-bg-grid"></div>
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label section-label-light">What I've Built</p>
+        <h2 class="section-title-light">Featured Projects.</h2>
+        <h2 class="section-title-muted">Built for impact.</h2>
+      </div>
+      <div class="projects-list" id="projects-list"></div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="section education-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">My Foundation</p>
+        <h2 class="section-title">Education</h2>
+      </div>
+      <div class="education-grid" id="education-grid"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact-section">
+    <div class="contact-bg-glow"></div>
+    <div class="container contact-container">
+      <div class="contact-info reveal">
+        <p class="section-label section-label-light">Contact</p>
+        <h2 class="contact-heading">Let's build<br>something great.</h2>
+        <p class="contact-sub">Looking for a dedicated IT professional to join your team?</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <span class="contact-item-label">EMAIL</span>
+            <span class="contact-item-value" id="contact-email"></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">PHONE</span>
+            <span class="contact-item-value" id="contact-phone"></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">HIRE ME ON</span>
+            <div class="hire-platforms" id="hire-platforms"></div>
+          </div>
+        </div>
+        <div class="contact-buttons">
+          <a href="#" class="btn btn-accent" id="contact-mailto">Get in touch <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="#" class="btn btn-ghost-light" id="resume-link">Download Resume</a>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal reveal-delay-1">
+        <form id="contact-form" class="contact-form">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <input type="text" name="subject" placeholder="Subject" required>
+          <textarea name="message" placeholder="Your Message (min 10 characters)" rows="5" required minlength="10"></textarea>
+          <button type="submit" class="btn btn-accent btn-full">Send Message</button>
+          <p class="form-status" id="form-status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Bryce A. Corvera. All rights reserved.</p>
+      <p class="footer-note">Built with NestJS</p>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scroll-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <img src="" alt="" id="lightbox-img">
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
