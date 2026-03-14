@@ -14,6 +14,7 @@ import { EducationModule } from './education/education.module';
 import { CertificationsModule } from './certifications/certifications.module';
 import { SeedModule } from './seed/seed.module';
 
+const isVercel = !!process.env.VERCEL;
 const databaseUrl = process.env.DATABASE_URL;
 
 const typeOrmConfig: any = databaseUrl
@@ -31,33 +32,39 @@ const typeOrmConfig: any = databaseUrl
       synchronize: true,
     };
 
+const staticModule = isVercel
+  ? []
+  : [
+      ServeStaticModule.forRoot({
+        rootPath: join(__dirname, '..', 'public'),
+        exclude: [
+          '/api/{*path}',
+          '/profile/{*path}',
+          '/profile',
+          '/projects/{*path}',
+          '/projects',
+          '/skills/{*path}',
+          '/skills',
+          '/experience/{*path}',
+          '/experience',
+          '/contact/{*path}',
+          '/contact',
+          '/blog/{*path}',
+          '/blog',
+          '/education/{*path}',
+          '/education',
+          '/certifications/{*path}',
+          '/certifications',
+          '/seed/{*path}',
+          '/seed',
+          '/health',
+        ],
+      }),
+    ];
+
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      exclude: [
-        '/api/{*path}',
-        '/profile/{*path}',
-        '/profile',
-        '/projects/{*path}',
-        '/projects',
-        '/skills/{*path}',
-        '/skills',
-        '/experience/{*path}',
-        '/experience',
-        '/contact/{*path}',
-        '/contact',
-        '/blog/{*path}',
-        '/blog',
-        '/education/{*path}',
-        '/education',
-        '/certifications/{*path}',
-        '/certifications',
-        '/seed/{*path}',
-        '/seed',
-        '/health',
-      ],
-    }),
+    ...staticModule,
     TypeOrmModule.forRoot(typeOrmConfig),
     ProfileModule,
     ProjectsModule,
