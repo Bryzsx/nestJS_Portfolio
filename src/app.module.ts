@@ -16,16 +16,16 @@ import { SeedModule } from './seed/seed.module';
 
 const databaseUrl = process.env.DATABASE_URL;
 
-const typeOrmConfig = databaseUrl
+const typeOrmConfig: any = databaseUrl
   ? {
-      type: 'postgres' as const,
+      type: 'postgres',
       url: databaseUrl,
       ssl: { rejectUnauthorized: false },
       autoLoadEntities: true,
       synchronize: true,
     }
   : {
-      type: 'better-sqlite3' as const,
+      type: 'better-sqlite3',
       database: 'portfolio.db',
       autoLoadEntities: true,
       synchronize: true,
