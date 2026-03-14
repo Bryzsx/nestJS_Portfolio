@@ -512,11 +512,11 @@ ul { list-style: none; }
 .footer {
   background: var(--bg); color: var(--text-secondary);
   border-top: 1px solid var(--border);
-  padding: 16px 0; font-size: 0.82rem;
+  padding: 10px 0; font-size: 0.78rem;
 }
-.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .footer-logo { display: flex; align-items: center; }
-.footer-logo-img { height: 64px; width: auto; object-fit: contain; }
+.footer-logo-img { height: 22px; width: auto; object-fit: contain; }
 .footer-right { margin: 0; color: var(--text-secondary); }
 .footer-sep { opacity: 0.5; margin: 0 6px; }
 .footer-note { color: var(--text-muted); font-size: 0.78rem; }
