@@ -514,7 +514,11 @@ ul { list-style: none; }
   border-top: 1px solid var(--border-dark);
   padding: 28px 0; font-size: 0.82rem;
 }
-.footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-logo { display: flex; align-items: center; }
+.footer-logo-img { height: 24px; width: auto; opacity: 0.9; }
+.footer-right { margin: 0; }
+.footer-sep { opacity: 0.5; margin: 0 6px; }
 .footer-note { color: var(--text-muted); font-size: 0.78rem; }
 
 /* ===== SCROLL TOP ===== */
@@ -585,5 +589,6 @@ ul { list-style: none; }
   .education-grid { grid-template-columns: 1fr; }
   .contact-container { grid-template-columns: 1fr; }
   .contact-heading { font-size: 2rem; }
-  .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-logo { justify-content: center; }
 }
