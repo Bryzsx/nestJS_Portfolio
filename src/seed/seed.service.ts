@@ -57,7 +57,7 @@ export class SeedService {
         name: 'Bryce A. Corvera',
         title: 'IT Professional & Developer',
         bio: 'Highly motivated Bachelor of Science in Information Technology (BSIT) graduate with a strong foundation in web development, backend systems, and cybersecurity. Skilled in the Python Flask framework, SEO, and building functional, secure applications. Possesses practical experience in network analysis, vulnerability assessment, and basic penetration testing gained through CTF challenges and hands-on projects.',
-        avatarUrl: '/images/profile.jpg',
+        avatarUrl: '/images/profile.png',
         githubUrl: 'https://github.com/bryce',
         linkedinUrl: 'https://linkedin.com/in/bryce',
         email: 'bryce.corvera21@gmail.com',
