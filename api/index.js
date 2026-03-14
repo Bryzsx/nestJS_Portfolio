@@ -1,16 +1,15 @@
 const { NestFactory } = require('@nestjs/core');
 const { ValidationPipe } = require('@nestjs/common');
 const { ExpressAdapter } = require('@nestjs/platform-express');
-const serverlessExpress = require('@vendia/serverless-express');
 const express = require('express');
 const { AppModule } = require('../dist/app.module');
 
-let cachedHandler;
+let expressApp;
 
 async function bootstrap() {
-  if (cachedHandler) return cachedHandler;
+  if (expressApp) return expressApp;
 
-  const expressApp = express();
+  expressApp = express();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp), {
     logger: ['error', 'warn'],
   });
@@ -21,18 +20,14 @@ async function bootstrap() {
   app.enableCors();
 
   await app.init();
-  cachedHandler = serverlessExpress({ app: expressApp });
-  return cachedHandler;
+  return expressApp;
 }
 
 module.exports = async function handler(req, res) {
   try {
-    const serverlessHandler = await bootstrap();
-    return serverlessHandler(req, res);
+    const app = await bootstrap();
+    app(req, res);
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-      stack: error.stack,
-    });
+    res.status(500).json({ error: error.message });
   }
 };
