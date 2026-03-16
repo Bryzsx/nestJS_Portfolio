@@ -190,6 +190,16 @@ export class SeedService {
         order: 4,
         images: ['/images/Pawfect1.jpg', '/images/Pawfect2.jpg', '/images/Pawfect3.jpg', '/images/Pawfect4.jpg'],
       },
+      {
+        title: 'Portfolio Website',
+        description:
+          'Personal portfolio site — Flask on PythonAnywhere and NestJS on Vercel.',
+        techStack: ['Python (Flask)', 'HTML/CSS', 'JavaScript'],
+        featured: true,
+        order: 5,
+        images: [],
+        liveUrl: 'https://nest-js-portfolio-three.vercel.app/',
+      },
     ];
 
     for (const project of projects) {

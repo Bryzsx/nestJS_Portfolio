@@ -185,6 +185,9 @@ async function loadProjects() {
 
   list.innerHTML = projects.map(proj => {
     const techStr = proj.techStack.map(t => `<span class="project-tech-tag">${t}</span>`).join('');
+    const liveLink = proj.liveUrl
+      ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="project-tech-tag project-tech-link">Vercel (NestJS) <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>`
+      : '';
     const imgs = proj.images && proj.images.length
       ? `<div class="project-images">${proj.images.map(src => `<img src="${src}" alt="" class="project-img" loading="lazy">`).join('')}</div>`
       : '';
@@ -193,7 +196,7 @@ async function loadProjects() {
         <div class="project-card-info">
           <h3>${proj.title}</h3>
           <p>${proj.description}</p>
-          <div class="project-tech">${techStr}</div>
+          <div class="project-tech">${techStr}${liveLink}</div>
           ${imgs}
         </div>
         <div class="project-code-block">
