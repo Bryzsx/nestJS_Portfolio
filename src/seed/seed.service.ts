@@ -274,7 +274,7 @@ export class SeedService {
       {
         title: 'Cyber Security Sentinel Training',
         platform: 'WorldTech Information Solutions Inc.',
-        instructor: '',
+        instructor: 'Robert L. Arquiza & Elizabeth C. Arquiza (Trainers)',
         date: 'June 26–30, 2023',
         hours: '',
         imageUrl: '/images/worldtech-cybersecurity-sentinel.png',
