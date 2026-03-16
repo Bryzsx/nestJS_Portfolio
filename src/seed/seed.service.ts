@@ -249,16 +249,32 @@ export class SeedService {
   }
 
   private async seedCertifications() {
-    await this.certRepo.save(
-      this.certRepo.create({
+    const certs = [
+      {
         title: 'The Complete Full-Stack Web Development Bootcamp',
         platform: 'Udemy',
         instructor: 'Dr. Angela Yu',
         date: 'Sept. 4, 2025',
         hours: '61.5 total hours',
         imageUrl: '/images/cert-udemy.png',
+        credentialUrl: '',
         order: 1,
-      }),
-    );
+      },
+      {
+        title:
+          'Wonder Table: An Android Based Augmented Reality Learning Tool for Periodic Elements (AIJMR Publication)',
+        platform: 'Advanced International Journal of Multidisciplinary Research (AIJMR)',
+        instructor: '',
+        date: 'Vol. 4, Issue 2 (Mar–Apr 2026)',
+        hours: '',
+        imageUrl: '',
+        credentialUrl: 'https://doi.org/10.62127/aijmr.2026.v04i02.1208',
+        order: 2,
+      },
+    ];
+
+    for (const cert of certs) {
+      await this.certRepo.save(this.certRepo.create(cert));
+    }
   }
 }
