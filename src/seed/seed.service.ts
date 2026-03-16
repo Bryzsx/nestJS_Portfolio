@@ -267,9 +267,19 @@ export class SeedService {
         instructor: '',
         date: 'Vol. 4, Issue 2 (Mar–Apr 2026)',
         hours: '',
-        imageUrl: '',
+        imageUrl: '/images/aijmr-wonder-table-cert.png',
         credentialUrl: 'https://doi.org/10.62127/aijmr.2026.v04i02.1208',
         order: 2,
+      },
+      {
+        title: 'Cyber Security Sentinel Training',
+        platform: 'WorldTech Information Solutions Inc.',
+        instructor: '',
+        date: 'June 26–30, 2023',
+        hours: '',
+        imageUrl: '/images/worldtech-cybersecurity-sentinel.png',
+        credentialUrl: '',
+        order: 3,
       },
     ];
 
