@@ -157,8 +157,13 @@ async function loadCertifications() {
   }
 
   list.innerHTML = certs.map(cert => {
-    const img = cert.imageUrl
-      ? `<img src="${cert.imageUrl}" alt="${cert.title}" class="cert-img">`
+    const effectiveImageUrl =
+      cert.imageUrl ||
+      (cert.title.includes('Wonder Table: An Android Based Augmented Reality Learning Tool for Periodic Elements')
+        ? '/images/aijmr-wonder-table-cert.png'
+        : '');
+    const img = effectiveImageUrl
+      ? `<img src="${effectiveImageUrl}" alt="${cert.title}" class="cert-img">`
       : `<div class="cert-img-placeholder">🎓</div>`;
     return `
       <div class="cert-card reveal">
