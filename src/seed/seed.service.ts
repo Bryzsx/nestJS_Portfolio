@@ -132,7 +132,18 @@ export class SeedService {
         endDate: null,
         type: ExperienceType.WORK,
         achievement: '9th Place Finisher — regional cybersecurity competition by DICT.',
-        images: ['/images/hack4gov-team.png', '/images/hack4gov-stage.png', '/images/hack4gov-certs.png', '/images/cypeer-1.png'],
+        images: ['/images/hack4gov-team.png', '/images/hack4gov-stage.png', '/images/hack4gov-certs.png'],
+      },
+      {
+        company: 'ACLC Butuan / Cypeer',
+        role: 'Cypeer Cybersecurity Outreach — Libertad NHS',
+        description:
+          'Volunteer — conducted a community outreach program at Libertad National High School educating Grade 10 students about cybersecurity awareness and digital safety as part of ACLC Butuan\'s Cypeer organization.',
+        startDate: '2025-02',
+        endDate: null,
+        type: ExperienceType.WORK,
+        achievement: 'Community outreach educating students on cybersecurity awareness and digital safety.',
+        images: ['/images/cypeer-1.png', '/images/cypeer-2.png', '/images/cypeer-3.png', '/images/cypeer-4.png'],
       },
     ];
 
