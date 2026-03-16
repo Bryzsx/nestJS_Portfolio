@@ -65,6 +65,7 @@ export class SeedService {
         resumeUrl: '/resume.pdf',
         availableForWork: true,
         hirePlatforms: [
+          { name: 'Portfolio (PythonAnywhere)', url: 'https://zupzed.pythonanywhere.com/' },
           { name: 'OnlineJobs.ph', url: 'https://www.onlinejobs.ph/jobseekers/info/3637372' },
           { name: 'Virtual Coworker', url: '#' },
           { name: 'LinkedIn', url: 'https://www.linkedin.com/in/bryce-corvera-520863321' },
@@ -198,7 +199,7 @@ export class SeedService {
         featured: true,
         order: 5,
         images: [],
-        liveUrl: 'https://nest-js-portfolio-three.vercel.app/',
+        liveUrl: 'https://zupzed.pythonanywhere.com/',
       },
     ];
 
