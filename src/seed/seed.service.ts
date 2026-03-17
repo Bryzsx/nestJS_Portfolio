@@ -55,8 +55,8 @@ export class SeedService {
     await this.profileRepo.save(
       this.profileRepo.create({
         name: 'Bryce A. Corvera',
-        title: 'IT Professional & Developer',
-        bio: 'BSIT graduate specializing in full-stack web development and cybersecurity. I build secure, production-ready applications using Python, Flask, NestJS, and modern backend frameworks. With hands-on experience in network analysis, vulnerability assessment, and penetration testing from CTF competitions, I bring a security-first mindset to every project I ship.',
+        title: 'Backend & Cybersecurity-Focused IT Professional',
+        bio: 'BSIT graduate specializing in secure backend development and cybersecurity. I build production-ready web applications with Python, Flask, and NestJS, applying a security-first mindset from CTF competitions, vulnerability assessment, and hands-on network analysis work.',
         avatarUrl: '/images/profile.png',
         githubUrl: 'https://github.com/Bryzsx',
         linkedinUrl: 'https://www.linkedin.com/in/bryce-corvera-520863321',
@@ -80,12 +80,12 @@ export class SeedService {
 
   private async seedSkills() {
     const skills = [
-      { name: 'Python', category: SkillCategory.WEB_BACKEND, proficiency: 90 },
-      { name: 'Flask', category: SkillCategory.WEB_BACKEND, proficiency: 85 },
+      { name: 'Python (Primary)', category: SkillCategory.WEB_BACKEND, proficiency: 90 },
+      { name: 'Flask (Primary)', category: SkillCategory.WEB_BACKEND, proficiency: 85 },
+      { name: 'NestJS (Primary)', category: SkillCategory.WEB_BACKEND, proficiency: 70 },
       { name: 'Django', category: SkillCategory.WEB_BACKEND, proficiency: 70 },
       { name: 'HTML', category: SkillCategory.WEB_BACKEND, proficiency: 95 },
       { name: 'CSS', category: SkillCategory.WEB_BACKEND, proficiency: 90 },
-      { name: 'NestJS', category: SkillCategory.WEB_BACKEND, proficiency: 70 },
       { name: 'Network Analysis', category: SkillCategory.CYBERSECURITY, proficiency: 75 },
       { name: 'Vulnerability Assessment', category: SkillCategory.CYBERSECURITY, proficiency: 70 },
       { name: 'Penetration Testing', category: SkillCategory.CYBERSECURITY, proficiency: 65 },
@@ -157,7 +157,7 @@ export class SeedService {
       {
         title: 'Face Recognition Biometric System',
         description:
-          'Identity verification and secure access system deployed at DOTr Region 13.',
+          'Identity verification and secure access system deployed at DOTr Region 13 and used for daily access control.',
         techStack: ['Python', 'OpenCV', 'Ubuntu', 'Tailscale'],
         featured: true,
         order: 1,
@@ -166,7 +166,7 @@ export class SeedService {
       {
         title: 'SMART Home Automation',
         description:
-          'Miniature smart home model with automated lighting and gate control via voice commands.',
+          'Miniature smart home model with automated lighting and gate control via voice commands, demonstrating IoT and Python backend integration.',
         techStack: ['Raspberry Pi 4', 'Python (Flask)', 'Alexa Echo Dot', 'Servo Motor', 'LED Lights'],
         featured: true,
         order: 2,
@@ -175,7 +175,7 @@ export class SeedService {
       {
         title: 'Wonder Table',
         description:
-          'An Android-based Augmented Reality learning tool for periodic elements with quiz modes and 3D AR visualization.',
+          'An Android-based Augmented Reality learning tool for periodic elements with quiz modes and 3D AR visualization, published in an international multidisciplinary research journal.',
         techStack: ['Unity', 'C#', 'AR Foundation', 'Android'],
         featured: true,
         order: 3,
@@ -184,7 +184,7 @@ export class SeedService {
       {
         title: 'PawFect — Pet Adoption App',
         description:
-          'A full-stack mobile application for pet adoption that connects shelters and pet owners with potential adopters. Features user authentication, pet listings, adoption request management with approve/reject workflows, and a polished sage-green UI.',
+          'A full-stack mobile application for pet adoption that connects shelters and pet owners with potential adopters, mirroring real adoption workflows with authentication, listings, and approve/reject request management.',
         techStack: ['TypeScript', 'React Native', 'Python', 'REST API', 'Mobile UI/UX'],
         featured: true,
         order: 4,
