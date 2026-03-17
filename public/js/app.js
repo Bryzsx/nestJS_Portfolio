@@ -82,8 +82,20 @@ async function loadSkills() {
     if (s.category === 'Soft Skills') {
       softSkills.push(s);
     } else {
-      if (!grouped[s.category]) grouped[s.category] = [];
-      grouped[s.category].push(s);
+      const displayCategory =
+        s.category === 'Web & Backend Development'
+          ? 'Backend Development'
+          : s.category === 'Cybersecurity & Forensics'
+          ? 'Cybersecurity'
+          : s.category === 'Linux Systems'
+          ? 'Linux & Systems'
+          : s.category === 'Server Management'
+          ? 'Server & Networking'
+          : s.category === 'SEO & Database Management'
+          ? 'Databases & SEO'
+          : s.category;
+      if (!grouped[displayCategory]) grouped[displayCategory] = [];
+      grouped[displayCategory].push(s);
     }
   });
 
@@ -165,6 +177,14 @@ async function loadCertifications() {
     const img = effectiveImageUrl
       ? `<img src="${effectiveImageUrl}" alt="${cert.title}" class="cert-img">`
       : `<div class="cert-img-placeholder">🎓</div>`;
+    let relevance = '';
+    if (cert.platform === 'Udemy') {
+      relevance = 'Full-stack web development bootcamp (60+ hrs)';
+    } else if (cert.platform === 'WorldTech Information Solutions Inc.') {
+      relevance = 'Hands-on cybersecurity training (5 days)';
+    } else if (cert.platform.includes('Advanced International Journal')) {
+      relevance = 'Published academic research work';
+    }
     return `
       <div class="cert-card reveal">
         <div class="cert-image">${img}</div>
@@ -175,6 +195,7 @@ async function loadCertifications() {
           <div class="cert-meta">
             ${cert.date ? `<span class="cert-meta-tag">${cert.date}</span>` : ''}
             ${cert.hours ? `<span class="cert-meta-tag">${cert.hours}</span>` : ''}
+            ${relevance ? `<span class="cert-meta-tag">${relevance}</span>` : ''}
           </div>
         </div>
       </div>
@@ -190,9 +211,29 @@ async function loadProjects() {
 
   list.innerHTML = projects.map(proj => {
     const techStr = proj.techStack.map(t => `<span class="project-tech-tag">${t}</span>`).join('');
+    const liveLabel = proj.title === 'Portfolio Website' ? 'PythonAnywhere (Flask)' : 'Live Demo';
     const liveLink = proj.liveUrl
-      ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="project-tech-tag project-tech-link">PythonAnywhere (Flask) <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>`
+      ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="project-tech-tag project-tech-link">${liveLabel} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>`
       : '';
+    const codeUrlMap = {
+      'Face Recognition Biometric System': 'https://github.com/Bryzsx', // update with specific repo when available
+      'SMART Home Automation': 'https://github.com/Bryzsx',
+      'Wonder Table': 'https://github.com/Bryzsx',
+      'PawFect — Pet Adoption App': 'https://github.com/Bryzsx',
+      'Portfolio Website': 'https://github.com/Bryzsx',
+    };
+    const codeUrl = codeUrlMap[proj.title];
+    const codeLink = codeUrl
+      ? `<a href="${codeUrl}" target="_blank" rel="noopener noreferrer" class="project-tech-tag project-tech-link">Code ↗</a>`
+      : `<span class="project-tech-tag">Code available on request</span>`;
+    const impactMap = {
+      'Face Recognition Biometric System': 'Deployed in a government office and used for daily access control.',
+      'SMART Home Automation': 'Demonstrates IoT control, voice commands, and Python backend integration.',
+      'Wonder Table': 'Backed by a published research paper in an international journal.',
+      'PawFect — Pet Adoption App': 'Imitates real-world pet adoption workflows with listings and approvals.',
+      'Portfolio Website': 'Showcases my personal brand and links to deployments.',
+    };
+    const impact = impactMap[proj.title];
     const imgs = proj.images && proj.images.length
       ? `<div class="project-images">${proj.images.map(src => `<img src="${src}" alt="" class="project-img" loading="lazy">`).join('')}</div>`
       : '';
@@ -201,7 +242,8 @@ async function loadProjects() {
         <div class="project-card-info">
           <h3>${proj.title}</h3>
           <p>${proj.description}</p>
-          <div class="project-tech">${techStr}${liveLink}</div>
+          ${impact ? `<ul class="project-impact"><li>${impact}</li></ul>` : ''}
+          <div class="project-tech">${techStr}${liveLink}${codeLink}</div>
           ${imgs}
         </div>
         <div class="project-code-block">
