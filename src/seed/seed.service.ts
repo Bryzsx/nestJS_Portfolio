@@ -73,7 +73,7 @@ export class SeedService {
         birthDate: 'July 21, 2002',
         age: '23 y/o',
         citizenship: 'Filipino',
-        role: 'Software Developer',
+        role: 'Web Developer',
       }),
     );
   }
