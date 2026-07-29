@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -64,6 +65,7 @@ const staticModule = isVercel
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     ...staticModule,
     TypeOrmModule.forRoot(typeOrmConfig),
     ProfileModule,
