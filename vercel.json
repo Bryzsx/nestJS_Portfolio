@@ -1,9 +1,10 @@
 {
   "framework": null,
   "buildCommand": "npm run build",
+  "outputDirectory": "public",
   "rewrites": [
     {
-      "source": "/(profile|projects|skills|experience|contact|blog|education|certifications|seed|health|api)(.*)",
+      "source": "/(profile|projects|skills|experience|contact|blog|education|certifications|seed|health)(.*)",
       "destination": "/api/index.js"
     }
   ]
