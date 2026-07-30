@@ -14,12 +14,14 @@ import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project } from './project.entity';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List all projects, optionally filter by tech' })
   @ApiQuery({ name: 'tech', required: false, example: 'React' })
@@ -27,6 +29,7 @@ export class ProjectsController {
     return this.projectsService.findAll(tech);
   }
 
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a single project by ID' })
   findOne(@Param('id', ParseIntPipe) id: number): Promise<Project> {

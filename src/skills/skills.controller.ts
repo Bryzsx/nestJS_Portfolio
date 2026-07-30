@@ -13,12 +13,14 @@ import { SkillsService } from './skills.service';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { UpdateSkillDto } from './dto/update-skill.dto';
 import { Skill } from './skill.entity';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('Skills')
 @Controller('skills')
 export class SkillsController {
   constructor(private readonly skillsService: SkillsService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List all skills' })
   findAll(): Promise<Skill[]> {

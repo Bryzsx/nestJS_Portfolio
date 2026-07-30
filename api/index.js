@@ -2,6 +2,7 @@ const { NestFactory } = require('@nestjs/core');
 const { ValidationPipe } = require('@nestjs/common');
 const { ExpressAdapter } = require('@nestjs/platform-express');
 const express = require('express');
+const helmet = require('helmet');
 const { AppModule } = require('../dist/app.module');
 
 let expressApp;
@@ -10,6 +11,9 @@ async function bootstrap() {
   if (expressApp) return expressApp;
 
   expressApp = express();
+
+  expressApp.use(helmet());
+
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp), {
     logger: ['error', 'warn'],
   });

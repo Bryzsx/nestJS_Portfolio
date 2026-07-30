@@ -12,12 +12,14 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { EducationService } from './education.service';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { UpdateEducationDto } from './dto/update-education.dto';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('Education')
 @Controller('education')
 export class EducationController {
   constructor(private readonly educationService: EducationService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List all education entries' })
   findAll() {

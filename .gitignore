@@ -38,6 +38,9 @@ lerna-debug.log*
 # SQLite database
 *.db
 
+# Obsidian vault config (if opened as vault)
+.obsidian/
+
 # dotenv environment variable files
 .env
 .env.development.local

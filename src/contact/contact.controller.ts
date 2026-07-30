@@ -6,20 +6,19 @@ import {
   Body,
   Param,
   ParseIntPipe,
-  UseFilters,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { Contact } from './contact.entity';
-import { HttpExceptionFilter } from '../common/filters/http-exception.filter';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('Contact')
 @Controller('contact')
-@UseFilters(HttpExceptionFilter)
 export class ContactController {
   constructor(private readonly contactService: ContactService) {}
 
+  @Public()
   @Post()
   @ApiOperation({ summary: 'Submit a contact message' })
   submit(@Body() dto: CreateContactDto): Promise<Contact> {

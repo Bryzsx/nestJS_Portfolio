@@ -7,7 +7,6 @@ import {
   Body,
   Param,
   Query,
-  UseGuards,
   DefaultValuePipe,
   ParseIntPipe,
 } from '@nestjs/common';
@@ -16,13 +15,14 @@ import { BlogService } from './blog.service';
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
 import { BlogPost } from './blog-post.entity';
-import { ApiKeyGuard } from '../common/guards/api-key.guard';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('Blog')
 @Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List published blog posts with pagination' })
   @ApiQuery({ name: 'page', required: false, example: 1 })
@@ -34,6 +34,7 @@ export class BlogController {
     return this.blogService.findAll(page, limit);
   }
 
+  @Public()
   @Get(':slug')
   @ApiOperation({ summary: 'Get a blog post by slug' })
   findBySlug(@Param('slug') slug: string): Promise<BlogPost> {
@@ -41,7 +42,6 @@ export class BlogController {
   }
 
   @Post()
-  @UseGuards(ApiKeyGuard)
   @ApiSecurity('api-key')
   @ApiOperation({ summary: 'Create a blog post (requires API key)' })
   create(@Body() dto: CreateBlogPostDto): Promise<BlogPost> {
@@ -49,7 +49,6 @@ export class BlogController {
   }
 
   @Patch(':slug')
-  @UseGuards(ApiKeyGuard)
   @ApiSecurity('api-key')
   @ApiOperation({ summary: 'Update a blog post (requires API key)' })
   update(
@@ -60,7 +59,6 @@ export class BlogController {
   }
 
   @Delete(':slug')
-  @UseGuards(ApiKeyGuard)
   @ApiSecurity('api-key')
   @ApiOperation({ summary: 'Delete a blog post (requires API key)' })
   remove(@Param('slug') slug: string): Promise<void> {

@@ -13,12 +13,14 @@ import { ExperienceService } from './experience.service';
 import { CreateExperienceDto } from './dto/create-experience.dto';
 import { UpdateExperienceDto } from './dto/update-experience.dto';
 import { Experience } from './experience.entity';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('Experience')
 @Controller('experience')
 export class ExperienceController {
   constructor(private readonly experienceService: ExperienceService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List all experience entries, sorted by date' })
   findAll(): Promise<Experience[]> {

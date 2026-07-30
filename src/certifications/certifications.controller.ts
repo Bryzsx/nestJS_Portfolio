@@ -12,12 +12,14 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CertificationsService } from './certifications.service';
 import { CreateCertificationDto } from './dto/create-certification.dto';
 import { UpdateCertificationDto } from './dto/update-certification.dto';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('Certifications')
 @Controller('certifications')
 export class CertificationsController {
   constructor(private readonly certificationsService: CertificationsService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List all certifications' })
   findAll() {
