@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bryce A. Corvera — Backend & Cybersecurity Portfolio</title>
-  <meta name="description" content="Backend developer & cybersecurity-focused IT professional. NestJS, Python, Flask, TypeScript. View live projects and experience.">
-  <meta name="keywords" content="backend developer, cybersecurity, NestJS, Python, Flask, portfolio, Bryce Corvera, web developer, Philippines">
+  <title>Bryce A. Corvera — Full Stack Developer Portfolio</title>
+  <meta name="description" content="Full Stack Developer. NestJS, Python, Flask, TypeScript. View live projects and experience.">
+  <meta name="keywords" content="full stack developer, NestJS, Python, Flask, TypeScript, portfolio, Bryce Corvera, web developer, Philippines">
   <meta name="author" content="Bryce A. Corvera">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f1eb" media="(prefers-color-scheme: light)">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/images/og-image.png">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Bryce A. Corvera — Backend & Cybersecurity Portfolio">
-  <meta property="og:description" content="Backend developer specializing in secure systems, NestJS, Python, and Flask. View live projects and professional experience.">
+  <meta property="og:title" content="Bryce A. Corvera — Full Stack Developer Portfolio">
+  <meta property="og:description" content="Full Stack Developer. NestJS, Python, Flask, TypeScript. View live projects and experience.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nest-js-portfolio-three.vercel.app/">
   <meta property="og:image" content="/images/og-image.png">
@@ -19,7 +23,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Bryce A. Corvera — Portfolio">
-  <meta name="twitter:description" content="Backend & Cybersecurity-focused IT Professional">
+  <meta name="twitter:description" content="Full Stack Developer">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a1a1a'/%3E%3Ctext x='16' y='22' font-size='18' font-family='monospace' font-weight='bold' fill='%23f6f1eb' text-anchor='middle'%3EBC%3C/text%3E%3C/svg%3E">
@@ -32,7 +36,7 @@
     "@type": "Person",
     "name": "Bryce A. Corvera",
     "url": "https://nest-js-portfolio-three.vercel.app/",
-    "jobTitle": "Backend & Cybersecurity-Focused IT Professional",
+    "jobTitle": "Full Stack Developer",
     "email": "bryce.corvera21@gmail.com",
     "address": { "@type": "PostalAddress", "addressLocality": "Butuan City", "addressCountry": "PH" },
     "sameAs": [
@@ -89,10 +93,10 @@
         <div class="hero-badge" id="availability-badge" style="display:none;">
           <span class="hero-badge-dot"></span> Available for Work
         </div>
-        <p class="hero-greeting">Backend &amp; Cybersecurity-Focused IT Professional</p>
+        <p class="hero-greeting">Hi, I'm</p>
         <h1 class="hero-name" id="hero-name"><span class="hero-name-accent">Bryce A. Corvera</span></h1>
+        <p class="hero-subtitle">Full Stack Developer</p>
         <p class="hero-bio" id="hero-bio"></p>
-        <div class="hero-stats" id="hero-stats"></div>
         <div class="hero-buttons">
           <a href="#projects" class="btn btn-primary">
             View My Best Projects
@@ -353,6 +357,18 @@
     <button class="lightbox-close" id="lightbox-close">&times;</button>
     <img src="" alt="" id="lightbox-img">
     <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <div class="confirm-dialog" id="confirm-dialog">
+    <div class="confirm-dialog-content">
+      <div class="confirm-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3 class="confirm-title">Message Sent!</h3>
+      <p class="confirm-text">Thanks for reaching out. I'll review your message and get back to you within 24 hours.</p>
+      <button class="btn btn-accent" id="confirm-close">Got it</button>
+    </div>
   </div>
 
   <script src="/js/app.js"></script>

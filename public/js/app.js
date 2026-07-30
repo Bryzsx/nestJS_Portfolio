@@ -15,8 +15,19 @@ async function safeLoad(fn, sectionName) {
   } catch (err) {
     console.error(`Failed to load ${sectionName}:`, err);
     showToast(`Could not load ${sectionName}. Please refresh.`);
-    const skeleton = document.querySelector(`#${sectionName.replace(/\s+/g, '-')} .skeleton, .${sectionName.replace(/\s+/g, '-')}-section .skeleton`);
+    const sectionId = sectionName === 'profile' ? 'about' : sectionName;
+    const skeleton = document.querySelector(`#${sectionId} .skeleton, .${sectionId}-section .skeleton`);
     if (skeleton) skeleton.style.display = 'none';
+    const container = document.querySelector(`#${sectionId} .container`) || document.getElementById(sectionId);
+    if (container && !container.querySelector('.load-error')) {
+      const errEl = document.createElement('div');
+      errEl.className = 'load-error';
+      errEl.innerHTML = `
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p>Could not load ${sectionName}. <button onclick="location.reload()" class="load-error-btn">Refresh page</button></p>
+      `;
+      container.appendChild(errEl);
+    }
   }
 }
 
@@ -64,7 +75,8 @@ function showToast(msg) {
 async function loadProfile() {
   const profile = await fetchJSON('/profile');
   const heroName = document.getElementById('hero-name');
-  heroName.innerHTML = profile.name ? `<span class="hero-name-accent">${profile.name}</span>` : '<span class="hero-name-accent">Bryce A. Corvera</span>';
+  const name = profile.name || 'Bryce A. Corvera';
+  heroName.innerHTML = `<span class="hero-name-accent">${name}</span>`;
   document.getElementById('hero-bio').textContent = profile.bio || '';
 
   const avatarImg = document.getElementById('hero-avatar-img');
@@ -138,8 +150,8 @@ async function loadProfile() {
     personalInfo.style.display = 'grid';
   }
 
-  loadStats();
   initReveal();
+  setTimeout(startHeroAnimation, 400);
 }
 
 async function loadStats() {
@@ -149,12 +161,36 @@ async function loadStats() {
       fetchJSON('/certifications'),
       fetchJSON('/experience'),
     ]);
+
+    let yearsExp = '2+';
+    if (experience.length) {
+      const earliest = experience
+        .map(e => e.startDate)
+        .filter(Boolean)
+        .sort()
+        [0];
+      if (earliest) {
+        const start = new Date(earliest);
+        const now = new Date();
+        const years = (now - start) / (365.25 * 24 * 60 * 60 * 1000);
+        if (years >= 5) yearsExp = '5+';
+        else if (years >= 3) yearsExp = '3+';
+        else yearsExp = Math.floor(years) + '+';
+      }
+    }
+
     const statsEl = document.getElementById('hero-stats');
     statsEl.innerHTML = [
-      { value: '5+', label: 'Years Experience' },
+      { value: yearsExp, label: 'Years Experience' },
       { value: projects.length, label: 'Projects' },
       { value: certs.length, label: 'Certifications' },
-    ].map(s => `<div class="hero-stat"><span class="hero-stat-value">${s.value}</span><span class="hero-stat-label">${s.label}</span></div>`).join('');
+    ].map(s => {
+      const match = String(s.value).match(/^(\d+)(.*)$/);
+      const num = match ? match[1] : '0';
+      const suffix = match ? match[2] : '';
+      return `<div class="hero-stat"><span class="hero-stat-value" data-count="${num}" data-suffix="${suffix}">0</span><span class="hero-stat-label">${s.label}</span></div>`;
+    }).join('');
+    observeCountUp();
   } catch (_) {}
 }
 
@@ -360,18 +396,30 @@ function filterProjects(tech) {
 function renderProjects(projects) {
   const list = document.getElementById('projects-list');
   if (!projects.length) {
-    list.innerHTML = '<p style="color:var(--text-light-secondary);">No projects match this filter.</p>';
+    list.innerHTML = `
+      <div class="filter-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-light-secondary)" stroke-width="1.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        <p>No projects match this filter.</p>
+        <button class="filter-empty-btn" onclick="document.querySelector('.filter-btn.active')?.click(); document.querySelector('[data-filter=\"all\"]')?.click();">Show All Projects</button>
+      </div>
+    `;
     return;
   }
 
   list.innerHTML = projects.map(proj => {
     const techStr = proj.techStack.map(t => `<span class="project-tech-tag">${t}</span>`).join('');
     const liveLink = proj.liveUrl
-      ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="project-tech-tag project-tech-link">Live Demo <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>`
+      ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="project-link-btn project-link-live">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          <span>Live Demo</span>
+        </a>`
       : '';
     const codeLink = proj.repoUrl
-      ? `<a href="${proj.repoUrl}" target="_blank" rel="noopener noreferrer" class="project-tech-tag project-tech-link">Code ↗</a>`
-      : `<span class="project-tech-tag">Code available on request</span>`;
+      ? `<a href="${proj.repoUrl}" target="_blank" rel="noopener noreferrer" class="project-link-btn project-link-code">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Source Code</span>
+        </a>`
+      : `<span class="project-link-btn project-link-na">Code available on request</span>`;
     const imgs = proj.images && proj.images.length
       ? `<div class="project-images">${proj.images.map(src => `<img src="${src}" alt="" class="project-img" loading="lazy">`).join('')}</div>`
       : '';
@@ -380,10 +428,11 @@ function renderProjects(projects) {
         <div class="project-card-info">
           <h3>${proj.title}</h3>
           <p>${proj.description}</p>
-          <div class="project-tech">${techStr}${liveLink}${codeLink}</div>
+          <div class="project-tech">${techStr}</div>
+          <div class="project-links">${liveLink}${codeLink}</div>
           ${imgs}
         </div>
-        <div class="project-code-block">
+        <div class="project-code-block" aria-hidden="true">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <div class="code-filename">developer.py</div>
           <br>
@@ -518,13 +567,13 @@ function initContactForm() {
       });
 
       if (res.ok) {
-        status.textContent = 'Message sent successfully!';
-        status.className = 'form-status success';
+        status.textContent = '';
+        status.className = 'form-status';
         form.reset();
         form.querySelectorAll('input, textarea').forEach(input => {
           input.classList.remove('input-success', 'input-error');
         });
-        showToast('Message sent successfully!');
+        document.getElementById('confirm-dialog').classList.add('active');
       } else {
         const err = await res.json();
         const msg = Array.isArray(err.message) ? err.message.join(', ') : err.message;
@@ -537,6 +586,15 @@ function initContactForm() {
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send Message';
+    }
+  });
+
+  document.getElementById('confirm-close').addEventListener('click', () => {
+    document.getElementById('confirm-dialog').classList.remove('active');
+  });
+  document.getElementById('confirm-dialog').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('confirm-dialog')) {
+      document.getElementById('confirm-dialog').classList.remove('active');
     }
   });
 }
@@ -792,10 +850,208 @@ function loadAbout() {
   const el = document.getElementById('about-text');
   if (el) {
     el.innerHTML = `
-      <p>Highly motivated BSIT graduate and Full Stack Web Developer with experience building modern web applications, backend systems, APIs, and secure software solutions. Skilled in Python (Flask), NestJS, React, Next.js, JavaScript/TypeScript, Linux systems, and database-driven applications.</p>
-      <p>Experienced in developing scalable applications, system integrations, deployment workflows, and applying cybersecurity practices through projects, vulnerability assessments, and CTF competitions. Passionate about creating reliable, efficient, and secure solutions while continuously improving skills through modern development practices and AI-assisted tools.</p>
+      <p>I build web applications that solve real business problems — from full-stack APIs to polished frontend interfaces. Whether you need a custom dashboard, an e-commerce platform, or API integrations, I deliver clean, reliable code that works.</p>
+      <p>With hands-on experience across NestJS, Python, React, and TypeScript, I handle both the frontend experience and the backend logic. That means fewer handoffs, faster delivery, and one person who owns the whole stack. Every project gets the same standard: clear communication, on-time delivery, and solutions built to last.</p>
     `;
   }
+}
+
+// ===== TYPEWRITER =====
+function typeWriter(el, text, speed) {
+  return new Promise(resolve => {
+    el.textContent = '';
+    el.classList.add('type-cursor');
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        el.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        el.classList.remove('type-cursor');
+        el.classList.add('done');
+        resolve();
+      }
+    }
+    type();
+  });
+}
+
+function startHeroAnimation() {
+  const greeting = document.querySelector('.hero-greeting');
+  const nameEl = document.querySelector('.hero-name');
+  const nameAccent = nameEl?.querySelector('.hero-name-accent');
+  const subtitle = document.querySelector('.hero-subtitle');
+  const bio = document.getElementById('hero-bio');
+  const buttons = document.querySelector('.hero-buttons');
+  if (!greeting || !nameAccent || !subtitle) return;
+
+  if (buttons) { buttons.style.opacity = '0'; buttons.style.transition = 'opacity 0.6s var(--ease-smooth)'; }
+
+  const greetingText = greeting.textContent;
+  const nameText = nameAccent.textContent;
+  const subtitleText = subtitle.textContent;
+  const bioText = bio?.textContent || '';
+  if (bio) { bio.style.opacity = '0'; bio.style.transition = 'opacity 0.6s var(--ease-smooth)'; }
+
+  greeting.classList.add('type-cursor');
+
+  function typeGreeting() {
+    let i = 0;
+    function tick() {
+      if (i < greetingText.length) {
+        greeting.textContent += greetingText.charAt(i);
+        i++;
+        setTimeout(tick, 40);
+      } else {
+        greeting.classList.remove('type-cursor');
+        greeting.classList.add('done');
+        typeName();
+      }
+    }
+    tick();
+  }
+
+  function typeName() {
+    nameAccent.textContent = '';
+    nameAccent.classList.add('type-cursor');
+    let j = 0;
+    function tick() {
+      if (j < nameText.length) {
+        nameAccent.textContent += nameText.charAt(j);
+        j++;
+        setTimeout(tick, 50);
+      } else {
+        nameAccent.classList.remove('type-cursor');
+        nameAccent.classList.add('done');
+        typeSubtitle();
+      }
+    }
+    tick();
+  }
+
+  function typeSubtitle() {
+    subtitle.classList.add('type-cursor');
+    let k = 0;
+    function tick() {
+      if (k < subtitleText.length) {
+        subtitle.textContent += subtitleText.charAt(k);
+        k++;
+        setTimeout(tick, 40);
+      } else {
+        subtitle.classList.remove('type-cursor');
+        subtitle.classList.add('done');
+        setTimeout(typeBio, 300);
+      }
+    }
+    tick();
+  }
+
+  function typeBio() {
+    if (!bio || !bioText) {
+      finish();
+      return;
+    }
+    bio.textContent = '';
+    bio.style.opacity = '1';
+    let m = 0;
+    function tick() {
+      if (m < bioText.length) {
+        bio.textContent += bioText.charAt(m);
+        m++;
+        const speed = bioText.charAt(m - 1) === '.' ? 120 : 15;
+        setTimeout(tick, speed);
+      } else {
+        setTimeout(finish, 200);
+      }
+    }
+    tick();
+  }
+
+  function finish() {
+    if (buttons) buttons.style.opacity = '1';
+  }
+
+  greeting.textContent = '';
+  nameAccent.textContent = '';
+  subtitle.textContent = '';
+  typeGreeting();
+}
+
+// ===== COUNT-UP =====
+function observeCountUp() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        const suffix = el.dataset.suffix || '';
+        if (isNaN(target)) { observer.unobserve(el); return; }
+        animateValue(el, 0, target, 1200, suffix);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.hero-stat-value[data-count]').forEach(el => observer.observe(el));
+}
+
+function animateValue(el, start, end, duration, suffix) {
+  const startTime = performance.now();
+  const isFloat = end % 1 !== 0;
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = start + (end - start) * eased;
+    el.textContent = isFloat ? current.toFixed(1) + suffix : Math.floor(current) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// ===== TIMELINE DRAW =====
+function observeTimeline() {
+  const timeline = document.querySelector('.timeline');
+  if (!timeline) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const scrollTarget = entry.target;
+        const totalHeight = scrollTarget.scrollHeight;
+        const updateLine = () => {
+          const rect = scrollTarget.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const offset = viewportHeight - rect.top;
+          const progress = Math.min(Math.max(offset / (totalHeight + viewportHeight), 0), 1);
+          scrollTarget.style.setProperty('--timeline-progress', progress);
+          scrollTarget.classList.add('draw');
+        };
+        updateLine();
+        window.addEventListener('scroll', updateLine, { passive: true });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  observer.observe(timeline);
+}
+
+// ===== IMAGE REVEAL =====
+function observeImageReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.project-img, .cert-img, .timeline-img').forEach(el => {
+    el.classList.add('reveal-img');
+    observer.observe(el);
+  });
 }
 
 // ===== INIT =====
@@ -817,4 +1073,11 @@ document.addEventListener('DOMContentLoaded', () => {
   safeLoad(loadCertifications, 'certifications');
   safeLoad(loadProjects, 'projects');
   safeLoad(loadEducation, 'education');
+
+  observeTimeline();
+  observeImageReveal();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
 });

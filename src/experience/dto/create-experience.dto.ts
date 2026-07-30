@@ -1,19 +1,22 @@
-import { IsString, IsEnum, IsOptional, IsArray } from 'class-validator';
+import { IsString, IsEnum, IsOptional, IsArray, MaxLength } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ExperienceType } from '../experience-type.enum';
 
 export class CreateExperienceDto {
   @ApiProperty({ example: 'Acme Corp' })
   @IsString()
+  @MaxLength(200)
   company: string;
 
   @ApiProperty({ example: 'Backend Developer' })
   @IsString()
+  @MaxLength(200)
   role: string;
 
   @ApiPropertyOptional({ example: 'Built REST APIs with NestJS and PostgreSQL.' })
   @IsString()
   @IsOptional()
+  @MaxLength(2000)
   description?: string;
 
   @ApiProperty({ example: '2024-01', description: 'YYYY-MM format' })
@@ -39,5 +42,6 @@ export class CreateExperienceDto {
   @ApiPropertyOptional({ example: 'Deployed a Face Recognition Biometric System' })
   @IsString()
   @IsOptional()
+  @MaxLength(2000)
   achievement?: string;
 }

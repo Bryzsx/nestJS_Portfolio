@@ -8,7 +8,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'https://nest-js-portfolio-three.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:5173',
+    ],
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
